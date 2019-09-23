@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="weather">Погода</string>
+    <string name="good_morning">Доброе утро, Geekbrains!</string>
+    <string name="good_afternoon">Доброе день, Geekbrains!</string>
+    <string name="good_evening">Доброе вечер, Geekbrains!</string>
+    <string name="good_night">Доброй ночи, Geekbrains!</string>
+</resources>
