@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="enter_city_name">Введите название города:</string>
+    <string name="humidity">Влажность</string>
+    <string name="air_pressure">Давление воздуха</string>
+    <string name="wind_speed">Скорость ветра</string>
+    <string name="check_weather">Узнать погоду</string>
+</resources>
