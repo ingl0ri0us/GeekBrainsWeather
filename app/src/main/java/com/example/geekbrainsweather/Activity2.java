@@ -1,49 +1,68 @@
 package com.example.geekbrainsweather;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Activity2 extends AppCompatActivity {
-    private EditText editText;
-    private Button toFirstActBtn;
 
-    static String dataForReturnKey = "dataForReturnKey";
+    private TextView resultWindow;
+    private String city;
+    private boolean humidityState;
+    private boolean airPressureState;
+    private boolean windSpeedState;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         initViews();
-        initEditText();
-        setBehaviourFor1stActBtn();
+        readDataFromIntent();
+        initResultWindow();
     }
 
-    private void initEditText() {
-        String text = getIntent().getStringExtra(MainActivity.defaultTextKey);
-        editText.setText(text);
+    private void readDataFromIntent() {
+        city = getIntent().getStringExtra("cityValue");
+        humidityState = getIntent().getBooleanExtra("humidityState", false);
+        airPressureState = getIntent().getBooleanExtra("airPressureState", false);
+        windSpeedState = getIntent().getBooleanExtra("windSpeedState", false);
     }
 
-    private void setBehaviourFor1stActBtn() {
-        toFirstActBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = editText.getText().toString();
-                Intent data = new Intent();
-                data.putExtra(dataForReturnKey, text);
-                setResult(RESULT_OK, data);
-                finish();
-            }
-        });
+    private void initResultWindow() {
+        resultWindow.setText(printCityWeather(city));
+    }
+
+    private String printCityWeather(String city) {
+        StringBuilder stringBuilder = new StringBuilder();
+        switch (city) {
+            case "Moscow":
+                stringBuilder.append("Moscow\nTemperature : 25 degrees\n");
+                if (humidityState) stringBuilder.append("Humidity : 75 %\n");
+                if (airPressureState) stringBuilder.append("Air pressure : 1050 HPa\n");
+                if (windSpeedState) stringBuilder.append("Wind speed : 5 m/sec\n");
+                break;
+            case "London":
+                stringBuilder.append("London\nTemperature : 15 degrees\n");
+                if (humidityState) stringBuilder.append("Humidity : 87 %\n");
+                if (airPressureState) stringBuilder.append("Air pressure : 1000 HPa\n");
+                if (windSpeedState) stringBuilder.append("Wind speed : 15 m/sec\n");
+                break;
+            case "Paris":
+                stringBuilder.append("Paris\nTemperature : 5 degrees\n");
+                if (humidityState) stringBuilder.append("Humidity : 60 %\n");
+                if (airPressureState) stringBuilder.append("Air pressure : 950 HPa\n");
+                if (windSpeedState) stringBuilder.append("Wind speed : 10 m/sec\n");
+                break;
+            default:
+                stringBuilder.append("City not found!");
+                break;
+        }
+        return stringBuilder.toString();
     }
 
     private void initViews() {
-        editText = findViewById(R.id.editText);
-        toFirstActBtn = findViewById(R.id.sendTo1stActBtn);
+        resultWindow = findViewById(R.id.weatherInfoWindow);
     }
 }
