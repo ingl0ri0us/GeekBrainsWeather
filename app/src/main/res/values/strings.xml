@@ -1,3 +1,36 @@
 <resources>
-    <string name="app_name">GeekBrainsWeather</string>
+    <string name="app_name" translatable="false">GeekBrainsWeather</string>
+    <string name="enter_city_name">Enter city name:</string>
+    <string name="humidity">Humidity</string>
+    <string name="air_pressure">Air Pressure</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="check_weather">Check weather</string>
+    <string name="available_cities" translatable="false">Available cities: Moscow, London, Paris.</string>
+    <string name="city_info">Moscow is the major political, economic, cultural, and scientific center
+        of Russia and Eastern Europe, as well as the largest city (both by population and by area)
+        entirely on the European continent. By broader definitions, Moscow is among the world\'s
+        largest cities, being the 14th largest metro area, the 18th largest agglomeration, the 14th
+        largest urban area, and the 11th largest by population within city limits worldwide.
+        According to Forbes 2013, Moscow has been ranked as the ninth most expensive city in the
+        world by Mercer and has one of the world\'s largest urban economies, being ranked as an alpha
+        global city according to the Globalization and World Cities Research Network, and is also one
+        of the fastest growing tourist destinations in the world according to the MasterCard Global
+        Destination Cities Index.Moscow is the northernmost and coldest megacity on Earth.
+        It is home to the Ostankino Tower, the
+        tallest free standing structure in Europe; the Federation Tower, the second-tallest skyscraper
+        in Europe; and the Moscow International Business Center. By its territorial expansion on
+        July 1, 2012 southwest into the Moscow Oblast, the area of the capital more than doubled,
+        going from 1,091 to 2,511 square kilometers (421 to 970 sq mi), resulting in Moscow becoming
+        the largest city on the European continent by area; it also gained an additional population
+        of 233,000 people.Moscow is situated on the Moskva River in the Central Federal
+        District of European Russia, making it
+        Europe\'s most populated inland city. The city is well known for its architecture,
+        particularly its historic buildings such as Saint Basil\'s Cathedral in Russian architectural
+        style with a richly decorated and multicolored facade. With over 40 percent of its
+        territory covered by greenery, it is one of the greenest capitals and major cities in Europe
+        and the world, having the largest forest in an urban area within its borders—more than any
+        other major city—even before its expansion in 2012. The city has served as the capital of a
+        progression of states, from the medieval Grand Duchy of Moscow and the subsequent Tsardom of
+        Russia to the Russian Empire to the Soviet Union and the contemporary Russian Federation.</string>
+
 </resources>
