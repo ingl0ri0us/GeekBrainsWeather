@@ -1,6 +1,8 @@
 package com.example.geekbrainsweather;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -8,19 +10,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Activity2 extends AppCompatActivity {
 
-    private TextView resultWindow;
+    private TextView cityInfo;
     private String city;
     private boolean humidityState;
     private boolean airPressureState;
     private boolean windSpeedState;
+    private TextView cityName;
+    private TextView humidityLabel, humidityValueField;
+    private TextView airPressureLabel, airPressureValueField;
+    private TextView windSpeedLabel, windSpeedValueField;
+    private ImageView imageSun,imageCloud,imageRain;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        initViews();
         readDataFromIntent();
-        initResultWindow();
+        initViews();
+        showCityWeather(city);
     }
 
     private void readDataFromIntent() {
@@ -30,39 +37,87 @@ public class Activity2 extends AppCompatActivity {
         windSpeedState = getIntent().getBooleanExtra("windSpeedState", false);
     }
 
-    private void initResultWindow() {
-        resultWindow.setText(printCityWeather(city));
-    }
-
-    private String printCityWeather(String city) {
-        StringBuilder stringBuilder = new StringBuilder();
+    private void showCityWeather(String city) {
         switch (city) {
             case "Moscow":
-                stringBuilder.append("Moscow\nTemperature : 25 degrees\n");
-                if (humidityState) stringBuilder.append("Humidity : 75 %\n");
-                if (airPressureState) stringBuilder.append("Air pressure : 1050 HPa\n");
-                if (windSpeedState) stringBuilder.append("Wind speed : 5 m/sec\n");
+                cityName.setVisibility(View.VISIBLE);
+                cityName.setText("Moscow");
+                imageCloud.setVisibility(View.VISIBLE);
+                cityInfo.setVisibility(View.VISIBLE);
+                if (humidityState) {
+                    humidityLabel.setVisibility(View.VISIBLE);
+                    humidityValueField.setVisibility(View.VISIBLE);
+                    humidityValueField.setText("75 %");
+                }
+                if (airPressureState) {
+                    airPressureLabel.setVisibility(View.VISIBLE);
+                    airPressureValueField.setVisibility(View.VISIBLE);
+                    airPressureValueField.setText("1050 HPa");
+                }
+                if (windSpeedState) {
+                    windSpeedLabel.setVisibility(View.VISIBLE);
+                    windSpeedValueField.setVisibility(View.VISIBLE);
+                    windSpeedValueField.setText("5 m/sec");
+                }
                 break;
             case "London":
-                stringBuilder.append("London\nTemperature : 15 degrees\n");
-                if (humidityState) stringBuilder.append("Humidity : 87 %\n");
-                if (airPressureState) stringBuilder.append("Air pressure : 1000 HPa\n");
-                if (windSpeedState) stringBuilder.append("Wind speed : 15 m/sec\n");
+                cityName.setVisibility(View.VISIBLE);
+                cityName.setText("London");
+                imageRain.setVisibility(View.VISIBLE);
+                if (humidityState) {
+                    humidityLabel.setVisibility(View.VISIBLE);
+                    humidityValueField.setVisibility(View.VISIBLE);
+                    humidityValueField.setText("87 %");
+                }
+                if (airPressureState) {
+                    airPressureLabel.setVisibility(View.VISIBLE);
+                    airPressureValueField.setVisibility(View.VISIBLE);
+                    airPressureValueField.setText("1000 HPa");
+                }
+                if (windSpeedState) {
+                    windSpeedLabel.setVisibility(View.VISIBLE);
+                    windSpeedValueField.setVisibility(View.VISIBLE);
+                    windSpeedValueField.setText("15 m/sec");
+                }
                 break;
             case "Paris":
-                stringBuilder.append("Paris\nTemperature : 5 degrees\n");
-                if (humidityState) stringBuilder.append("Humidity : 60 %\n");
-                if (airPressureState) stringBuilder.append("Air pressure : 950 HPa\n");
-                if (windSpeedState) stringBuilder.append("Wind speed : 10 m/sec\n");
+                cityName.setVisibility(View.VISIBLE);
+                cityName.setText("Paris");
+                imageSun.setVisibility(View.VISIBLE);
+                if (humidityState) {
+                    humidityLabel.setVisibility(View.VISIBLE);
+                    humidityValueField.setVisibility(View.VISIBLE);
+                    humidityValueField.setText("60 %");
+                }
+                if (airPressureState) {
+                    airPressureLabel.setVisibility(View.VISIBLE);
+                    airPressureValueField.setVisibility(View.VISIBLE);
+                    airPressureValueField.setText("950 HPa");
+                }
+                if (windSpeedState) {
+                    windSpeedLabel.setVisibility(View.VISIBLE);
+                    windSpeedValueField.setVisibility(View.VISIBLE);
+                    windSpeedValueField.setText("10 m/sec");
+                }
                 break;
             default:
-                stringBuilder.append("City not found!");
+                cityName.setVisibility(View.VISIBLE);
+                cityName.setText("City not found!");
                 break;
         }
-        return stringBuilder.toString();
     }
 
     private void initViews() {
-        resultWindow = findViewById(R.id.weatherInfoWindow);
+        cityInfo = findViewById(R.id.cityInfoWindow);
+        cityName = findViewById(R.id.cityName);
+        humidityLabel = findViewById(R.id.humidityLabel);
+        humidityValueField = findViewById(R.id.humidityValueField);
+        airPressureLabel = findViewById(R.id.airPressureLabel);
+        airPressureValueField = findViewById(R.id.airPressureValueField);
+        windSpeedLabel = findViewById(R.id.windSpeedLabel);
+        windSpeedValueField = findViewById(R.id.windSpeedValueField);
+        imageCloud = findViewById(R.id.imageCloud);
+        imageRain = findViewById(R.id.imageRain);
+        imageSun = findViewById(R.id.imageSun);
     }
 }

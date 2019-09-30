@@ -9,19 +9,139 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="203dp"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/imageSun"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="28dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/cityName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/sun"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/imageCloud"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="28dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/cityName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/cloud"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/imageRain"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="28dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/cityName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/rain"
+            tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/weatherInfoWindow"
-            android:layout_width="363dp"
-            android:layout_height="255dp"
+            android:id="@+id/cityName"
+            android:layout_width="188dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="28dp"
             android:text=""
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.107"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.086" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/humidityLabel"
+            android:layout_width="94dp"
+            android:layout_height="26dp"
+            android:text="@string/humidity"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.075"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cityName" />
+
+        <TextView
+            android:id="@+id/humidityValueField"
+            android:layout_width="94dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="128dp"
+            android:text=""
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/humidityLabel"
+            app:layout_constraintTop_toBottomOf="@+id/cityName" />
+
+        <TextView
+            android:id="@+id/airPressureLabel"
+            android:layout_width="94dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="24dp"
+            android:text="@string/air_pressure"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/humidityLabel" />
+
+        <TextView
+            android:id="@+id/airPressureValueField"
+            android:layout_width="94dp"
+            android:layout_height="26dp"
+            android:text=""
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/airPressureLabel"
+            app:layout_constraintTop_toBottomOf="@+id/humidityValueField" />
+
+        <TextView
+            android:id="@+id/windSpeedLabel"
+            android:layout_width="94dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="24dp"
+            android:text="@string/wind_speed"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/airPressureLabel" />
+
+        <TextView
+            android:id="@+id/windSpeedValueField"
+            android:layout_width="94dp"
+            android:layout_height="26dp"
+            android:text=""
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/windSpeedLabel"
+            app:layout_constraintTop_toBottomOf="@+id/airPressureValueField" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/cityInfoWindow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/city_info"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
