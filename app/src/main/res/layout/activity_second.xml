@@ -16,11 +16,11 @@
             android:id="@+id/imageSun"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="16dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/cityName"
+            app:layout_constraintHorizontal_bias="0.006"
+            app:layout_constraintStart_toEndOf="@+id/temperatureValue"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/sun"
             tools:ignore="ContentDescription" />
@@ -29,11 +29,11 @@
             android:id="@+id/imageCloud"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="16dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/cityName"
+            app:layout_constraintHorizontal_bias="0.006"
+            app:layout_constraintStart_toEndOf="@+id/temperatureValue"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/cloud"
             tools:ignore="ContentDescription" />
@@ -42,24 +42,24 @@
             android:id="@+id/imageRain"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="16dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/cityName"
+            app:layout_constraintStart_toEndOf="@+id/temperatureValue"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/rain"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/cityName"
-            android:layout_width="188dp"
+            android:layout_width="94dp"
             android:layout_height="30dp"
             android:layout_marginTop="28dp"
             android:text=""
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.107"
+            app:layout_constraintHorizontal_bias="0.075"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -123,6 +123,16 @@
             android:visibility="invisible"
             app:layout_constraintStart_toEndOf="@+id/windSpeedLabel"
             app:layout_constraintTop_toBottomOf="@+id/airPressureValueField" />
+
+        <TextView
+            android:id="@+id/temperatureValue"
+            android:layout_width="93dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="28dp"
+            android:text=""
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/cityName"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
@@ -136,9 +146,10 @@
 
             <TextView
                 android:id="@+id/cityInfoWindow"
+                style="@style/SepiaReadingStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/city_info"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:visibility="invisible" />
         </LinearLayout>

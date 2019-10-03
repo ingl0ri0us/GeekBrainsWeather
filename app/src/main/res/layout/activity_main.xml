@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/gradient_background">
 
     <TextView
         android:id="@+id/cityNameInfo"
-        android:layout_width="112dp"
-        android:layout_height="28dp"
+        android:layout_width="145dp"
+        android:layout_height="31dp"
         android:layout_marginStart="44dp"
         android:gravity="bottom|start"
         android:text="@string/enter_city_name"
@@ -42,14 +43,12 @@
         android:id="@+id/checkWeatherButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="76dp"
+        android:layout_marginTop="68dp"
         android:text="@string/check_weather"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxWindSpeed"
-        app:layout_constraintVertical_bias="0.07" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxCityInfo" />
 
     <CheckBox
         android:id="@+id/checkBoxHumidity"
@@ -58,12 +57,10 @@
         android:checked="false"
         android:text="@string/humidity"
         android:textAlignment="viewStart"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.319"
+        app:layout_constraintHorizontal_bias="0.312"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/availableCities"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxTemperature" />
 
     <CheckBox
         android:id="@+id/checkBoxAirPressure"
@@ -71,36 +68,55 @@
         android:layout_height="30dp"
         android:text="@string/air_pressure"
         android:textAlignment="viewStart"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.319"
+        app:layout_constraintHorizontal_bias="0.312"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxHumidity"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxHumidity" />
 
     <CheckBox
         android:id="@+id/checkBoxWindSpeed"
         android:layout_width="270dp"
         android:layout_height="30dp"
         android:text="@string/wind_speed"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.319"
+        app:layout_constraintHorizontal_bias="0.312"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxAirPressure"
-        app:layout_constraintVertical_bias="0.0"
+        tools:textAlignment="viewStart" />
+
+    <CheckBox
+        android:id="@+id/checkBoxTemperature"
+        android:layout_width="270dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="88dp"
+        android:text="@string/temperature"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.312"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/availableCities"
+        tools:textAlignment="viewStart" />
+
+    <CheckBox
+        android:id="@+id/checkBoxCityInfo"
+        android:layout_width="270dp"
+        android:layout_height="30dp"
+        android:text="@string/city_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.312"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxWindSpeed"
         tools:textAlignment="viewStart" />
 
     <TextView
         android:id="@+id/availableCities"
-        android:layout_width="270dp"
-        android:layout_height="30dp"
+        android:layout_width="303dp"
+        android:layout_height="35dp"
         android:text="@string/available_cities"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.319"
+        app:layout_constraintHorizontal_bias="0.407"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cityNameInfo"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.017" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

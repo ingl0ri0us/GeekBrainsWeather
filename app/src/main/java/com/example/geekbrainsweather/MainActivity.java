@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox checkBoxHumidity;
     private CheckBox checkBoxAirPressure;
     private CheckBox checkBoxWindSpeed;
+    private CheckBox checkBoxTemperature;
+    private CheckBox checkBoxCityInfo;
     private Button sendQueryButton;
     private static final String ACTIVITY_STATE_TAG = "Activity State Change";
 
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
                 String cityName = enteredCityName.getText().toString();
                 intent.putExtra("cityValue", cityName);
                 setResult(RESULT_OK, intent);
+                if (checkBoxTemperature.isChecked()) {
+                    intent.putExtra("temperatureState", true);
+                }
                 if (checkBoxHumidity.isChecked()) {
                     intent.putExtra("humidityState", true);
                 }
@@ -48,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
                 if (checkBoxWindSpeed.isChecked()) {
                     intent.putExtra("windSpeedState", true);
                 }
+                if (checkBoxCityInfo.isChecked()) {
+                    intent.putExtra("cityInfoState", true);
+                }
                 startActivity(intent);
             }
         });
@@ -55,9 +63,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         enteredCityName = findViewById(R.id.enteredCityName);
+        checkBoxTemperature = findViewById(R.id.checkBoxTemperature);
         checkBoxHumidity = findViewById(R.id.checkBoxHumidity);
         checkBoxAirPressure = findViewById(R.id.checkBoxAirPressure);
         checkBoxWindSpeed = findViewById(R.id.checkBoxWindSpeed);
+        checkBoxCityInfo = findViewById(R.id.checkBoxCityInfo);
         sendQueryButton = findViewById(R.id.checkWeatherButton);
     }
 
