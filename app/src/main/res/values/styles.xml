@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SepiaReadingStyle">
+        <item name="android:background">@color/sepia</item>
+        <item name="android:textColor">@color/darkBrown</item>
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+
 </resources>
