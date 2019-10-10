@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cities">
+        <item>Moscow</item>
+        <item>London</item>
+        <item>Paris</item>
+    </string-array>
+
+    <integer-array name="cities_temperatures">
+        <item>@string/moscowTemperatureValue</item>
+        <item>@string/londonTemperatureValue</item>
+        <item>@string/parisTemperatureValue</item>
+    </integer-array>
+
+</resources>
