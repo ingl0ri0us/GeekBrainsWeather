@@ -44,7 +44,7 @@
     <string name="londonHumidityValue" translatable="false">87 %</string>
     <string name="londonPressureValue" translatable="false">1000 HPa</string>
     <string name="londonWindSpeed" translatable="false">15 m/sec</string>
-    <string name="parisCityName">Paris +25 ℃</string>
+    <string name="parisCityName">Paris</string>
     <string name="parisTemperatureValue" translatable="false">+25 ℃</string>
     <string name="parisHumidityValue" translatable="false">60 %</string>
     <string name="parisPressureValue" translatable="false">950 HPa</string>
@@ -94,6 +94,8 @@
         the first city to have hosted three modern Summer Olympic Games.
     </string>
     <string name="empty_list" translatable="false">Emtpy list</string>
+    <string name="forecast_3day_label">3-day forecast:</string>
+    <string name="today_temperature_label">Today temperature:</string>
 
 
 </resources>

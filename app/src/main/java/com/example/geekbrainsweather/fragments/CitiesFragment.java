@@ -69,6 +69,14 @@ public class CitiesFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        Toast.makeText(getContext(), "onSIS, CurrentCity = " + currentPosition, Toast.LENGTH_SHORT).show();
+
+        outState.putInt("CurrentCity", currentPosition);
+        super.onSaveInstanceState(outState);
+    }
+
     private void initList() {
         ArrayAdapter adapter =
                 ArrayAdapter.createFromResource(
@@ -112,6 +120,12 @@ public class CitiesFragment extends Fragment {
             intent.putExtra("index", currentPosition);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onResume() {
+        listView.setItemChecked(currentPosition, true);
+        super.onResume();
     }
 
     @Override

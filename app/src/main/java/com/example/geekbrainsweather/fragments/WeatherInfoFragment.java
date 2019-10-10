@@ -11,8 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.geekbrainsweather.R;
+import com.example.geekbrainsweather.RecyclerViewAdapter;
+import com.example.geekbrainsweather.WeatherData;
 
 import java.util.Objects;
 
@@ -36,10 +40,17 @@ public class WeatherInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        TextView weatherInfo = new TextView(getActivity());
-        TypedArray weatherInfoArray = getResources().obtainTypedArray(R.array.cities_temperatures);
-        weatherInfo.setText(weatherInfoArray.getResourceId(getIndex(), -1));
+        View rootView = inflater.inflate(R.layout.weather_info, container, false);
 
-        return weatherInfo;
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(WeatherData.get3dayForecastById(getIndex()));
+        recyclerView.setAdapter(adapter);
+
+        TextView todayTemperature = rootView.findViewById(R.id.today_temperature);
+        TypedArray weatherInfoArray = getResources().obtainTypedArray(R.array.cities_temperatures);
+        todayTemperature.setText(weatherInfoArray.getResourceId(getIndex(), -1));
+
+        return rootView;
     }
 }
