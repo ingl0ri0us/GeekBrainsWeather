@@ -5,104 +5,61 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Toast;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText enteredCityName;
-    private CheckBox checkBoxHumidity;
-    private CheckBox checkBoxAirPressure;
-    private CheckBox checkBoxWindSpeed;
-    private CheckBox checkBoxTemperature;
-    private CheckBox checkBoxCityInfo;
-    private Button sendQueryButton;
-    private static final String ACTIVITY_STATE_TAG = "Activity State Change";
+    private TextInputEditText enteredCityName;
+    private FloatingActionButton floatingActionButton;
+
+    private MaterialButton sendQueryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        setFloatingActionButtonBehaviour();
         setSendQueryButtonBehaviour();
 
-        Toast.makeText(getBaseContext(), "onCreate", Toast.LENGTH_SHORT).show();
     }
 
     private void setSendQueryButtonBehaviour() {
         sendQueryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Activity2.class);
-                String cityName = enteredCityName.getText().toString();
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                String cityName = Objects.requireNonNull(enteredCityName.getText()).toString();
                 intent.putExtra("cityValue", cityName);
                 setResult(RESULT_OK, intent);
-                if (checkBoxTemperature.isChecked()) {
-                    intent.putExtra("temperatureState", true);
-                }
-                if (checkBoxHumidity.isChecked()) {
-                    intent.putExtra("humidityState", true);
-                }
-                if (checkBoxAirPressure.isChecked()) {
-                    intent.putExtra("airPressureState", true);
-                }
-                if (checkBoxWindSpeed.isChecked()) {
-                    intent.putExtra("windSpeedState", true);
-                }
-                if (checkBoxCityInfo.isChecked()) {
-                    intent.putExtra("cityInfoState", true);
-                }
+
                 startActivity(intent);
             }
         });
     }
 
     private void initViews() {
+        floatingActionButton = findViewById(R.id.floatingActionButton2);
         enteredCityName = findViewById(R.id.enteredCityName);
-        checkBoxTemperature = findViewById(R.id.checkBoxTemperature);
-        checkBoxHumidity = findViewById(R.id.checkBoxHumidity);
-        checkBoxAirPressure = findViewById(R.id.checkBoxAirPressure);
-        checkBoxWindSpeed = findViewById(R.id.checkBoxWindSpeed);
-        checkBoxCityInfo = findViewById(R.id.checkBoxCityInfo);
         sendQueryButton = findViewById(R.id.checkWeatherButton);
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Toast.makeText(getBaseContext(), "onStart", Toast.LENGTH_SHORT).show();
-        Log.i(ACTIVITY_STATE_TAG, "onStart");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Toast.makeText(getBaseContext(), "onPause", Toast.LENGTH_SHORT).show();
-        Log.i(ACTIVITY_STATE_TAG, "onPause");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Toast.makeText(getBaseContext(), "onStop", Toast.LENGTH_SHORT).show();
-        Log.i(ACTIVITY_STATE_TAG, "onStop");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Toast.makeText(getBaseContext(), "onDestroy", Toast.LENGTH_SHORT).show();
-        Log.i(ACTIVITY_STATE_TAG, "onDestroy");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Toast.makeText(getBaseContext(), "onRestart", Toast.LENGTH_SHORT).show();
-        Log.i(ACTIVITY_STATE_TAG, "onRestart");
+    private void setFloatingActionButtonBehaviour() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, getString(R.string.created_by), Snackbar.LENGTH_LONG)
+                        .setAction("Action",null)
+                        .show();
+            }
+        });
     }
 }
