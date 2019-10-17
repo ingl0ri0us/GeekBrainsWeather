@@ -1,8 +1,9 @@
 package com.example.geekbrainsweather;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -15,15 +16,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class SecondActivity extends AppCompatActivity {
 
     private String city;
     RecyclerView recyclerView;
-    private DataClass[] forecastData;
-    private final Handler handler = new Handler();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,9 +33,40 @@ public class SecondActivity extends AppCompatActivity {
         readDataFromIntent();
         initViews();
         setTitle(city);
-        updateWeatherData(city);
-        initRecyclerView();
 
+        new AsyncFetch().execute();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class AsyncFetch extends AsyncTask<DataClass[], DataClass[], DataClass[]> {
+        @Override
+        protected DataClass[] doInBackground(DataClass[]... dataClasses) {
+            DataClass[] result = null;
+            try {
+                final JSONObject jsonObject = WeatherDataLoader.getJSONData(city);
+
+                if (jsonObject == null) {
+                    result = new DataClass[]{
+                            new DataClass(ContextCompat.getDrawable(getApplicationContext(), R.drawable.alert_circle_dark),
+                                    "Wrong City",
+                                    "",
+                                    "",
+                                    "",
+                                    "")};
+                } else {
+                    result = getDataArrayFromJson(jsonObject);
+                }
+            } catch (JSONException e) {
+                Log.e("AssyncFetch", "JSONException");
+                e.printStackTrace();
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(DataClass[] dataClasses) {
+            initRecyclerView(dataClasses);
+        }
     }
 
     private void readDataFromIntent() {
@@ -43,42 +75,6 @@ public class SecondActivity extends AppCompatActivity {
 
     private void initViews() {
         recyclerView = findViewById(R.id.recyclerView);
-    }
-
-    private void updateWeatherData(final String city) {
-        new Thread() {
-            @Override
-            public void run() {
-                final JSONObject jsonObject = WeatherDataLoader.getJSONData(city);
-
-                if (jsonObject == null) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            forecastData = new DataClass[]{
-                                    new DataClass(ContextCompat.getDrawable(getApplicationContext(), R.drawable.alert_circle_dark),
-                                            "No Such City",
-                                            "",
-                                            "",
-                                            "",
-                                            "")};
-                        }
-                    });
-                } else {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                forecastData = getDataArrayFromJson(jsonObject);
-                            } catch (JSONException e) {
-                                Log.e("updateWeatherData", "JSONException");
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                }
-            }
-        }.start();
     }
 
     private DataClass[] getDataArrayFromJson(JSONObject jsonObject) throws JSONException {
@@ -96,19 +92,18 @@ public class SecondActivity extends AppCompatActivity {
 
             Drawable icon = getWeatherIcon(currentForecastElement.getJSONArray("weather").getJSONObject(0), timeOfForecastPeriod, sunrise, sunset);
             String forecastPeriod = getForecastPeriod(currentForecastElement);
-            String temperature = getTemperature(currentForecastElement.getJSONObject("main"));
-            String humidityValue = getHumidity(currentForecastElement.getJSONObject("main"));
-            String pressure = getPressure(currentForecastElement.getJSONObject("main"));
-            String windSpeed = getWindSpeed(currentForecastElement.getJSONObject("wind"));
+            String temperature = getTemperature(currentForecastElement.getJSONObject("main")) + " ℃";
+            String humidityValue = getHumidity(currentForecastElement.getJSONObject("main")) + " %";
+            String pressure = getPressure(currentForecastElement.getJSONObject("main")) + " hPa";
+            String windSpeed = getWindSpeed(currentForecastElement.getJSONObject("wind")) + " m/sec";
 
             dataFromJson[i] = new DataClass(icon, forecastPeriod, temperature, humidityValue, pressure, windSpeed);
         }
-        forecastData = dataFromJson;
         return dataFromJson;
     }
 
     private String getForecastPeriod(JSONObject jsonObject) {
-        DateFormat dateFormat = DateFormat.getDateInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM HH:mm", Locale.getDefault());
         Date date = new Date(0);
         try {
             date = new Date(jsonObject.getLong("dt") * 1000);
@@ -120,14 +115,14 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     private String getTemperature(JSONObject jsonObject) {
-        double temperatureValue = -999;
+        int temperatureValue = -999;
         try {
-            temperatureValue = jsonObject.getDouble("temp");
+            temperatureValue = jsonObject.getInt("temp");
         } catch (JSONException e) {
             Log.e("getTemperature", "JSONException");
             e.printStackTrace();
         }
-        return Double.toString(temperatureValue);
+        return Integer.toString(temperatureValue);
     }
 
     private String getHumidity(JSONObject jsonObject) {
@@ -149,7 +144,8 @@ public class SecondActivity extends AppCompatActivity {
             Log.e("getWindSpeed", "JSONException");
             e.printStackTrace();
         }
-        return Double.toString(windSpeed);
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(windSpeed);
     }
 
     private String getPressure(JSONObject jsonObject) {
@@ -213,9 +209,9 @@ public class SecondActivity extends AppCompatActivity {
         return iconToReturn;
     }
 
-    private void initRecyclerView() {
+    private void initRecyclerView(DataClass[] data) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(forecastData);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(data);
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);

@@ -7,7 +7,7 @@
     <string name="temperature">Temperature</string>
     <string name="city_info">City Info</string>
     <string name="check_weather">Check weather</string>
-    <string name="available_cities">Available cities: Moscow, London, Paris.</string>
+    <string name="available_cities">Just English city names available</string>
     <string name="city_info_Moscow">Moscow is the major political, economic, cultural, and scientific center
         of Russia and Eastern Europe, as well as the largest city (both by population and by area)
         entirely on the European continent. By broader definitions, Moscow is among the world\'s
