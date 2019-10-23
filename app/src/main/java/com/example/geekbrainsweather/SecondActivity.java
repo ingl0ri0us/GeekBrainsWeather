@@ -33,7 +33,6 @@ public class SecondActivity extends AppCompatActivity {
         readDataFromIntent();
         initViews();
         setTitle(city);
-
         new AsyncFetch().execute();
     }
 
@@ -57,7 +56,7 @@ public class SecondActivity extends AppCompatActivity {
                     result = getDataArrayFromJson(jsonObject);
                 }
             } catch (JSONException e) {
-                Log.e("AssyncFetch", "JSONException");
+                Log.e("AsyncFetch", "JSONException");
                 e.printStackTrace();
             }
             return result;

@@ -31,10 +31,10 @@ class WeatherDataLoader {
             reader.close();
 
             JSONObject jsonObject = new JSONObject(rawData.toString());
-            if(jsonObject.getInt(RESPONSE) != ALL_GOOD) {
-                return null;
-            } else {
+            if (jsonObject.getInt(RESPONSE) == ALL_GOOD) {
                 return jsonObject;
+            } else {
+                return null;
             }
         } catch (Exception exc) {
             exc.printStackTrace();

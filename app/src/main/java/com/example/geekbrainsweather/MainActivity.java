@@ -2,10 +2,13 @@ package com.example.geekbrainsweather;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initViews();
+
         setFloatingActionButtonBehaviour();
         setSendQueryButtonBehaviour();
 
@@ -49,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton = findViewById(R.id.floatingActionButton2);
         enteredCityName = findViewById(R.id.enteredCityName);
         sendQueryButton = findViewById(R.id.checkWeatherButton);
-
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     private void setFloatingActionButtonBehaviour() {
@@ -57,9 +63,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Snackbar.make(v, getString(R.string.created_by), Snackbar.LENGTH_LONG)
-                        .setAction("Action",null)
+                        .setAction("Action", null)
                         .show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 }
