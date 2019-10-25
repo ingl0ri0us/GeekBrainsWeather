@@ -11,6 +11,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import com.example.geekbrainsweather.fragments.EnterCityName;
+import com.example.geekbrainsweather.fragments.SeveralPeriodsForecast;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -22,22 +26,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     DrawerLayout drawer;
     Toolbar toolbar;
-    private TextInputEditText enteredCityName;
+//    private TextInputEditText enteredCityName;
+//    private MaterialButton sendQueryButton;
     private FloatingActionButton floatingActionButton;
-    private MaterialButton sendQueryButton;
+    String cityName;
+
+    EnterCityName enterCityNameFragment;
+    SeveralPeriodsForecast severalPeriodsForecast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initFragments();
+        setDefaultFragment();
         initViews();
         initSideMenu();
         setFloatingActionButtonBehaviour();
-        setSendQueryButtonBehaviour();
+        //setSendQueryButtonBehaviour();
     }
 
-    private void setSendQueryButtonBehaviour() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+       /* receiveDataFromFragment();
+        sendCityNameToFragment();
+        setSeveralPeriodsForecastFragment();*/
+    }
+
+    /*private void receiveDataFromFragment() {
+        Intent intent = getIntent();
+        cityName = intent.getStringExtra("enteredCityName");
+    }
+
+    private void sendCityNameToFragment() {
+        Bundle bundle = new Bundle();
+        bundle.putString("cityName", cityName);
+        severalPeriodsForecast = new SeveralPeriodsForecast();
+        severalPeriodsForecast.setArguments(bundle);
+    }*/
+
+    /*private void setSendQueryButtonBehaviour() {
         sendQueryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,12 +79,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+    }*/
+
+    private void initFragments() {
+        enterCityNameFragment = new EnterCityName();
     }
+
+    private void setDefaultFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, enterCityNameFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    /*private void setSeveralPeriodsForecastFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, severalPeriodsForecast)
+                .commit();
+    }*/
 
     private void initViews() {
         floatingActionButton = findViewById(R.id.floatingActionButton2);
-        enteredCityName = findViewById(R.id.enteredCityName);
-        sendQueryButton = findViewById(R.id.checkWeatherButton);
+//        enteredCityName = findViewById(R.id.enteredCityName);
+//        sendQueryButton = findViewById(R.id.checkWeatherButton);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }

@@ -12,7 +12,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private DataClass[] data = new DataClass[0];
 
-    RecyclerViewAdapter(DataClass[] data) {
+    public RecyclerViewAdapter(DataClass[] data) {
         if (data != null) {
             this.data = data;
         }

@@ -1,39 +1,65 @@
-package com.example.geekbrainsweather;
+package com.example.geekbrainsweather.fragments;
+
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.geekbrainsweather.DataClass;
+import com.example.geekbrainsweather.R;
+import com.example.geekbrainsweather.RecyclerViewAdapter;
+import com.example.geekbrainsweather.SecondActivity;
+import com.example.geekbrainsweather.WeatherDataLoader;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class SecondActivity extends AppCompatActivity {
+public class SeveralPeriodsForecast extends Fragment {
 
     private String cityName;
     RecyclerView recyclerView;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
-        readDataFromIntent();
-        initViews();
-        new AsyncFetch().execute();
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
+        cityName = getArguments().getString("cityName");
+        return inflater.inflate(R.layout.fragment_several_periods_forecast, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initViews(view);
+        new AsyncFetchFragment().execute();
+
+    }
+
+    private void initViews(View view) {
+        recyclerView = view.findViewById(R.id.recyclerView_fragment);
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class AsyncFetch extends AsyncTask<DataClass[], DataClass[], DataClass[]> {
+    private class AsyncFetchFragment extends AsyncTask<DataClass[], DataClass[], DataClass[]> {
         @Override
         protected DataClass[] doInBackground(DataClass[]... dataClasses) {
             DataClass[] result = null;
@@ -42,7 +68,7 @@ public class SecondActivity extends AppCompatActivity {
 
                 if (jsonObject == null) {
                     result = new DataClass[]{
-                            new DataClass(ContextCompat.getDrawable(getApplicationContext(), R.drawable.alert_circle_dark),
+                            new DataClass(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.alert_circle_dark),
                                     "Wrong City",
                                     "",
                                     "",
@@ -57,19 +83,10 @@ public class SecondActivity extends AppCompatActivity {
             }
             return result;
         }
-
         @Override
         protected void onPostExecute(DataClass[] dataClasses) {
             initRecyclerView(dataClasses);
         }
-    }
-
-    private void readDataFromIntent() {
-        cityName = getIntent().getStringExtra("cityName");
-    }
-
-    private void initViews() {
-        recyclerView = findViewById(R.id.recyclerView);
     }
 
     private DataClass[] getDataArrayFromJson(JSONObject jsonObject) throws JSONException {
@@ -168,35 +185,35 @@ public class SecondActivity extends AppCompatActivity {
 
         if (iconIdFromJson == 800) {
             if (timeOfForecastPeriod >= sunrise && timeOfForecastPeriod < sunset) {
-                iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.weather_sunny_dark);
+                iconToReturn = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.weather_sunny_dark);
             } else {
-                iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.weather_clear_night_dark);
+                iconToReturn = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.weather_clear_night_dark);
             }
         } else {
             switch (id) {
                 case 2: {
-                    iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.weather_lightning_dark);
+                    iconToReturn = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.weather_lightning_dark);
                     break;
                 }
                 case 3:
                 case 5: {
-                    iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.weather_pouring_dark);
+                    iconToReturn = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.weather_pouring_dark);
                     break;
                 }
                 case 6: {
-                    iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.snowflake_dark);
+                    iconToReturn = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.snowflake_dark);
                     break;
                 }
                 case 7: {
-                    iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.weather_fog_dark);
+                    iconToReturn = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.weather_fog_dark);
                     break;
                 }
                 case 8: {
-                    iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.weather_partly_cloudy_dark);
+                    iconToReturn = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.weather_partly_cloudy_dark);
                     break;
                 }
                 default: {
-                    iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.alert_circle_dark);
+                    iconToReturn = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.alert_circle_dark);
                     break;
                 }
             }
@@ -205,11 +222,11 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(DataClass[] data) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(data);
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
     }
-}
 
+}
