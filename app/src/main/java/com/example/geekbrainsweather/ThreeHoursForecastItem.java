@@ -2,13 +2,13 @@ package com.example.geekbrainsweather;
 
 import android.graphics.drawable.Drawable;
 
-public class DataClass {
+public class ThreeHoursForecastItem {
     Drawable weatherThumbnail;
     String weekDay;
     String temperatureValue;
     String humidityValue, airPressureValue, windSpeedValue;
 
-    public DataClass(Drawable weatherThumbnail, String weekDay, String temperatureValue, String humidityValue, String airPressureValue, String windSpeedValue) {
+    ThreeHoursForecastItem(Drawable weatherThumbnail, String weekDay, String temperatureValue, String humidityValue, String airPressureValue, String windSpeedValue) {
         this.weatherThumbnail = weatherThumbnail;
         this.weekDay = weekDay;
         this.temperatureValue = temperatureValue;

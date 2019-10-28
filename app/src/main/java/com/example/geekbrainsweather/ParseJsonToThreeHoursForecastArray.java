@@ -1,82 +1,57 @@
 package com.example.geekbrainsweather;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class SecondActivity extends AppCompatActivity {
+public class ParseJsonToThreeHoursForecastArray {
 
-    private String cityName;
-    RecyclerView recyclerView;
+    private JSONObject jsonObject;
+    private ThreeHoursForecastItem[] ParsedArray;
+    private Context context;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
-        readDataFromIntent();
-        initViews();
-        new AsyncFetch().execute();
+    public ParseJsonToThreeHoursForecastArray(Context context, String cityName) {
+        this.context = context;
+        String FORECAST_INTERVAL = "threeHours";
+        jsonObject = JSONDownloader.getJSONObject(cityName, FORECAST_INTERVAL);
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class AsyncFetch extends AsyncTask<DataClass[], DataClass[], DataClass[]> {
-        @Override
-        protected DataClass[] doInBackground(DataClass[]... dataClasses) {
-            DataClass[] result = null;
+    public ThreeHoursForecastItem[] getForecastArray() {
+        if(jsonObject == null) {
+            ParsedArray = new ThreeHoursForecastItem[] {new ThreeHoursForecastItem(
+                    ContextCompat.getDrawable(context, R.drawable.alert_circle_dark),
+                    "Wrong City",
+                    "",
+                    "",
+                    "",
+                    "")};
+        } else {
             try {
-                final JSONObject jsonObject = WeatherDataLoader.getJSONData(cityName);
-
-                if (jsonObject == null) {
-                    result = new DataClass[]{
-                            new DataClass(ContextCompat.getDrawable(getApplicationContext(), R.drawable.alert_circle_dark),
-                                    "Wrong City",
-                                    "",
-                                    "",
-                                    "",
-                                    "")};
-                } else {
-                    result = getDataArrayFromJson(jsonObject);
-                }
+                ParsedArray = getDataArrayFromJson();
             } catch (JSONException e) {
-                Log.e("AsyncFetch", "JSONException");
+                Log.e("getForecastArray()", "JSONException");
                 e.printStackTrace();
             }
-            return result;
         }
-
-        @Override
-        protected void onPostExecute(DataClass[] dataClasses) {
-            initRecyclerView(dataClasses);
-        }
+        return ParsedArray;
     }
 
-    private void readDataFromIntent() {
-        cityName = getIntent().getStringExtra("cityName");
-    }
-
-    private void initViews() {
-        recyclerView = findViewById(R.id.recyclerView);
-    }
-
-    private DataClass[] getDataArrayFromJson(JSONObject jsonObject) throws JSONException {
+    private ThreeHoursForecastItem[] getDataArrayFromJson() throws JSONException {
         int forecastPeriods = jsonObject.getInt("cnt");
         JSONArray listOfForecasts = jsonObject.getJSONArray("list");
 
-        DataClass[] dataFromJson = new DataClass[forecastPeriods];
+        ThreeHoursForecastItem[] dataFromJson = new ThreeHoursForecastItem[forecastPeriods];
 
         long sunrise = jsonObject.getJSONObject("city").getLong("sunrise") * 1000;
         long sunset = jsonObject.getJSONObject("city").getLong("sunset") * 1000;
@@ -92,7 +67,7 @@ public class SecondActivity extends AppCompatActivity {
             String pressure = getPressure(currentForecastElement.getJSONObject("main")) + " hPa";
             String windSpeed = getWindSpeed(currentForecastElement.getJSONObject("wind")) + " m/sec";
 
-            dataFromJson[i] = new DataClass(icon, forecastPeriod, temperature, humidityValue, pressure, windSpeed);
+            dataFromJson[i] = new ThreeHoursForecastItem(icon, forecastPeriod, temperature, humidityValue, pressure, windSpeed);
         }
         return dataFromJson;
     }
@@ -168,48 +143,39 @@ public class SecondActivity extends AppCompatActivity {
 
         if (iconIdFromJson == 800) {
             if (timeOfForecastPeriod >= sunrise && timeOfForecastPeriod < sunset) {
-                iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.weather_sunny_dark);
+                iconToReturn = ContextCompat.getDrawable(context, R.drawable.weather_sunny_dark);
             } else {
-                iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.weather_clear_night_dark);
+                iconToReturn = ContextCompat.getDrawable(context, R.drawable.weather_clear_night_dark);
             }
         } else {
             switch (id) {
                 case 2: {
-                    iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.weather_lightning_dark);
+                    iconToReturn = ContextCompat.getDrawable(context, R.drawable.weather_lightning_dark);
                     break;
                 }
                 case 3:
                 case 5: {
-                    iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.weather_pouring_dark);
+                    iconToReturn = ContextCompat.getDrawable(context, R.drawable.weather_pouring_dark);
                     break;
                 }
                 case 6: {
-                    iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.snowflake_dark);
+                    iconToReturn = ContextCompat.getDrawable(context, R.drawable.snowflake_dark);
                     break;
                 }
                 case 7: {
-                    iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.weather_fog_dark);
+                    iconToReturn = ContextCompat.getDrawable(context, R.drawable.weather_fog_dark);
                     break;
                 }
                 case 8: {
-                    iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.weather_partly_cloudy_dark);
+                    iconToReturn = ContextCompat.getDrawable(context, R.drawable.weather_partly_cloudy_dark);
                     break;
                 }
                 default: {
-                    iconToReturn = ContextCompat.getDrawable(getApplicationContext(), R.drawable.alert_circle_dark);
+                    iconToReturn = ContextCompat.getDrawable(context, R.drawable.alert_circle_dark);
                     break;
                 }
             }
         }
         return iconToReturn;
     }
-
-    private void initRecyclerView(DataClass[] data) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(data);
-
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
-    }
 }
-

@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private DataClass[] data = new DataClass[0];
+    private ThreeHoursForecastItem[] data = new ThreeHoursForecastItem[0];
 
-    public RecyclerViewAdapter(DataClass[] data) {
+    public RecyclerViewAdapter(ThreeHoursForecastItem[] data) {
         if (data != null) {
             this.data = data;
         }
@@ -23,7 +23,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.cardview, parent, false);
+                .inflate(R.layout.cardview_three_hours_forecast, parent, false);
         return new ViewHolder(view);
     }
 

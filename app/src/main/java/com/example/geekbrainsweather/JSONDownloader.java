@@ -7,16 +7,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class WeatherDataLoader {
+class JSONDownloader {
     private static final String OPEN_WEATHER_API_KEY = "35c744e8949e353ebb9961393941c850";
-    private static final String OPEN_WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/forecast?q=%s&units=metric";
     private static final String KEY = "x-api-key";
     private static final String RESPONSE = "cod";
     private static final int ALL_GOOD = 200;
 
-    public static JSONObject getJSONData(String city) {
+    static JSONObject getJSONObject(String city, String urlKey) {
         try {
-            URL url =new URL(String.format(OPEN_WEATHER_API_URL, city));
+            URL url = new URL(String.format(getProperApiUrl(urlKey), city));
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.addRequestProperty(KEY, OPEN_WEATHER_API_KEY);
 
@@ -39,6 +38,14 @@ public class WeatherDataLoader {
         } catch (Exception exc) {
             exc.printStackTrace();
             return null;
+        }
+    }
+
+    private static String getProperApiUrl(String urlKey) {
+        if(urlKey.equals("threeHours")) {
+            return "https://api.openweathermap.org/data/2.5/forecast?q=%s&units=metric";
+        } else {
+            return "https://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
         }
     }
 }

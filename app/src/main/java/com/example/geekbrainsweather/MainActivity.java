@@ -2,37 +2,40 @@ package com.example.geekbrainsweather;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import android.content.Intent;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.EditText;
 
+import com.example.geekbrainsweather.fragments.About;
+import com.example.geekbrainsweather.fragments.CitiesWithCurrentTemperatures;
 import com.example.geekbrainsweather.fragments.EnterCityName;
-import com.example.geekbrainsweather.fragments.SeveralPeriodsForecast;
-import com.google.android.material.button.MaterialButton;
+import com.example.geekbrainsweather.fragments.SensorTemperature;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawer;
     Toolbar toolbar;
-//    private TextInputEditText enteredCityName;
-//    private MaterialButton sendQueryButton;
     private FloatingActionButton floatingActionButton;
-    String cityName;
+
+    String newCity;
 
     EnterCityName enterCityNameFragment;
-    SeveralPeriodsForecast severalPeriodsForecast;
+    SensorTemperature sensorTemperatureFragment;
+    CitiesWithCurrentTemperatures citiesWithCurrentTemperaturesFragment;
+    About aboutFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,66 +47,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initViews();
         initSideMenu();
         setFloatingActionButtonBehaviour();
-        //setSendQueryButtonBehaviour();
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-       /* receiveDataFromFragment();
-        sendCityNameToFragment();
-        setSeveralPeriodsForecastFragment();*/
-    }
-
-    /*private void receiveDataFromFragment() {
-        Intent intent = getIntent();
-        cityName = intent.getStringExtra("enteredCityName");
-    }
-
-    private void sendCityNameToFragment() {
-        Bundle bundle = new Bundle();
-        bundle.putString("cityName", cityName);
-        severalPeriodsForecast = new SeveralPeriodsForecast();
-        severalPeriodsForecast.setArguments(bundle);
-    }*/
-
-    /*private void setSendQueryButtonBehaviour() {
-        sendQueryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                String cityName = Objects.requireNonNull(enteredCityName.getText()).toString();
-                intent.putExtra("cityValue", cityName);
-                setResult(RESULT_OK, intent);
-
-                startActivity(intent);
-            }
-        });
-    }*/
 
     private void initFragments() {
         enterCityNameFragment = new EnterCityName();
+        sensorTemperatureFragment = new SensorTemperature();
+        citiesWithCurrentTemperaturesFragment = new CitiesWithCurrentTemperatures();
+        aboutFragment = new About();
     }
 
     private void setDefaultFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentContainer, enterCityNameFragment)
-                .addToBackStack(null)
                 .commit();
     }
 
-    /*private void setSeveralPeriodsForecastFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, severalPeriodsForecast)
-                .commit();
-    }*/
-
     private void initViews() {
         floatingActionButton = findViewById(R.id.floatingActionButton2);
-//        enteredCityName = findViewById(R.id.enteredCityName);
-//        sendQueryButton = findViewById(R.id.checkWeatherButton);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
@@ -121,9 +82,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.menu_add) {
+            showInputDialog();
+        }
+        return true;
+    }
+
+    private void showInputDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Alert dialog");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                newCity = input.getText().toString();
+                Bundle bundle = new Bundle();
+                bundle.putString("newCity", newCity);
+                citiesWithCurrentTemperaturesFragment.setArguments(bundle);
+                citiesWithCurrentTemperaturesFragment.addNewCity();
+            }
+        });
+        builder.show();
     }
 
     private void initSideMenu() {
@@ -136,23 +126,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
-        if(id == R.id.nav_home) {
-
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.three_hour_forecast) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, enterCityNameFragment)
+                    .commit();
+        } else if (id == R.id.sensor_temperature) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, sensorTemperatureFragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else if (id == R.id.list_of_cities) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, citiesWithCurrentTemperaturesFragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else if (id == R.id.about) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, aboutFragment)
+                    .addToBackStack(null)
+                    .commit();
         }
 
         drawer.closeDrawer(GravityCompat.START);

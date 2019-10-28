@@ -21,12 +21,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <!-- <include layout="@layout/content_main"
-         android:layout_height="match_parent"
-         android:layout_width="match_parent"
-         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
-
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"

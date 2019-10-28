@@ -1,6 +1,5 @@
 package com.example.geekbrainsweather.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,12 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.geekbrainsweather.MainActivity;
 import com.example.geekbrainsweather.R;
-import com.example.geekbrainsweather.SecondActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Objects;
 
 public class EnterCityName extends Fragment {
 
@@ -47,12 +45,12 @@ public class EnterCityName extends Fragment {
         sendQueryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String cityName = enteredCityName.getText().toString();
+                String cityName = Objects.requireNonNull(enteredCityName.getText()).toString();
                 Bundle bundle = new Bundle();
                 bundle.putString("cityName", cityName);
                 SeveralPeriodsForecast severalPeriodsForecast = new SeveralPeriodsForecast();
                 severalPeriodsForecast.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction()
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragmentContainer, severalPeriodsForecast)
                         .addToBackStack(null)
                         .commit();
