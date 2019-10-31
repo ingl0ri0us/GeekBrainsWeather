@@ -26,6 +26,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String BROADCAST_ACTION = "com.example.geekbrainsweather.sendingaction";
+
     DrawerLayout drawer;
     Toolbar toolbar;
     private FloatingActionButton floatingActionButton;

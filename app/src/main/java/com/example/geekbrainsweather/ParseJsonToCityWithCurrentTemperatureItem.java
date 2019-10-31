@@ -1,6 +1,10 @@
 package com.example.geekbrainsweather;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
@@ -10,19 +14,44 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class ParseJsonToCityWithCurrentTemperatureItem {
     private JSONObject jsonObject;
     private CityWithCurrentTemperatureItem parsedItem;
     private Context context;
 
-    public ParseJsonToCityWithCurrentTemperatureItem(Context context, String cityName) {
+    public ParseJsonToCityWithCurrentTemperatureItem(final Activity activity, Context context, String cityName) {
         this.context = context;
         String FORECAST_INTERVAL = "current";
-        jsonObject = JSONDownloader.getJSONObject(cityName, FORECAST_INTERVAL);
+        //jsonObject = JSONDownloader.getJSONObject(cityName, FORECAST_INTERVAL);
+
+        BroadcastReceiver messageReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, final Intent intent) {
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            jsonObject = new JSONObject(Objects.requireNonNull(intent.getStringExtra("JsonData")));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        };
+        context.registerReceiver(messageReceiver, new IntentFilter(MainActivity.BROADCAST_ACTION));
+
+        Intent intent = new Intent(context, JSONDownloaderService.class);
+        intent.putExtra("cityName", cityName);
+        intent.putExtra("forecastInterval", FORECAST_INTERVAL);
+        context.startService(intent);
     }
 
     public CityWithCurrentTemperatureItem getParsedCityWithCurrentTemperatureItem() {
-        if(jsonObject == null) {
+        if (jsonObject == null) {
             parsedItem = new CityWithCurrentTemperatureItem(ContextCompat.getDrawable(context, R.drawable.alert_circle_dark),
                     "Wrong City Name",
                     "");
@@ -44,7 +73,7 @@ public class ParseJsonToCityWithCurrentTemperatureItem {
         long sunrise = jsonObject.getJSONObject("sys").getLong("sunrise") * 1000;
         long sunset = jsonObject.getJSONObject("sys").getLong("sunset") * 1000;
 
-        Drawable icon = getWeatherIcon(forecastData.getJSONObject(0),currentTimeFromJson, sunrise, sunset);
+        Drawable icon = getWeatherIcon(forecastData.getJSONObject(0), currentTimeFromJson, sunrise, sunset);
         String cityNameFromJson = jsonObject.getString("name");
         String temperatureFromJson = getTemperature(jsonObject.getJSONObject("main"));
 

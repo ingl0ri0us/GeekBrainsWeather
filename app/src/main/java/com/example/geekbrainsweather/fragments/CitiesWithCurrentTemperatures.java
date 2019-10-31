@@ -38,10 +38,13 @@ public class CitiesWithCurrentTemperatures extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
-        new AsyncFetchCitiesWithCurrentTemp().execute();
+
+        initDefaultCities();
+        initRecyclerView(listOfCities);
+
     }
 
-    @SuppressLint("StaticFieldLeak")
+    /*@SuppressLint("StaticFieldLeak")
     private class AsyncFetchCitiesWithCurrentTemp extends AsyncTask<Void, Void, ArrayList<CityWithCurrentTemperatureItem>> {
         @Override
         protected ArrayList<CityWithCurrentTemperatureItem> doInBackground(Void... voids) {
@@ -51,7 +54,7 @@ public class CitiesWithCurrentTemperatures extends Fragment {
         protected void onPostExecute(ArrayList<CityWithCurrentTemperatureItem> cities) {
             initRecyclerView(cities);
         }
-    }
+    }*/
 
     private void initViews(View view) {
         recyclerView = view.findViewById(R.id.recyclerView_cities_with_current_temperatures);
@@ -65,7 +68,7 @@ public class CitiesWithCurrentTemperatures extends Fragment {
     }
 
     private CityWithCurrentTemperatureItem getCityFromJson(String cityName) {
-        ParseJsonToCityWithCurrentTemperatureItem parser = new ParseJsonToCityWithCurrentTemperatureItem(getContext(), cityName);
+        ParseJsonToCityWithCurrentTemperatureItem parser = new ParseJsonToCityWithCurrentTemperatureItem(getActivity(), getContext(), cityName);
         return parser.getParsedCityWithCurrentTemperatureItem();
     }
 
