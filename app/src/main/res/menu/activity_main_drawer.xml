@@ -5,17 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/three_hour_forecast"
-            android:icon="@android:drawable/ic_menu_camera"
-            android:title="@string/three_hour_forecast" />
-        <item
             android:id="@+id/sensor_temperature"
             android:icon="@android:drawable/ic_menu_gallery"
             android:title="@string/sensor_temperature" />
-        <item
-            android:id="@+id/list_of_cities"
-            android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="@string/list_of_cities" />
+
     </group>
 
     <item android:title="@string/communicate">

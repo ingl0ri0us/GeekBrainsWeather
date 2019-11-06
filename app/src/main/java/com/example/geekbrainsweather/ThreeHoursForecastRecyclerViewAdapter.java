@@ -8,11 +8,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class ThreeHoursForecastRecyclerViewAdapter extends RecyclerView.Adapter<ThreeHoursForecastRecyclerViewAdapter.ViewHolder> {
 
     private ThreeHoursForecastItem[] data = new ThreeHoursForecastItem[0];
 
-    public RecyclerViewAdapter(ThreeHoursForecastItem[] data) {
+    public ThreeHoursForecastRecyclerViewAdapter(ThreeHoursForecastItem[] data) {
         if (data != null) {
             this.data = data;
         }

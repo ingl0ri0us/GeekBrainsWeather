@@ -8,13 +8,12 @@
     <string name="available_cities">Just English city names available</string>
     <string name="created_by">This app was created by GeekBrains student</string>
 
-    <string name="three_hour_forecast" translatable="false">3 Hour Forecast</string>
     <string name="sensor_temperature" translatable="false">Sensor Temperature</string>
-    <string name="list_of_cities" translatable="false">List of cities</string>
     <string name="menu_tools" translatable="false">Tools</string>
     <string name="menu_share" translatable="false">Share</string>
 
-    <string name="add" translatable="false">Add</string>
+    <string name="save" translatable="false">Save</string>
+
     <string name="edit" translatable="false">Edit</string>
     <string name="remove" translatable="false">Remove</string>
     <string name="clear" translatable="false">Clear</string>

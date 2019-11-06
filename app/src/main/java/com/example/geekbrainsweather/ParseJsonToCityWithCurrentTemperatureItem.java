@@ -46,7 +46,7 @@ public class ParseJsonToCityWithCurrentTemperatureItem {
 
         Drawable icon = getWeatherIcon(forecastData.getJSONObject(0),currentTimeFromJson, sunrise, sunset);
         String cityNameFromJson = jsonObject.getString("name");
-        String temperatureFromJson = getTemperature(jsonObject.getJSONObject("main"));
+        String temperatureFromJson = getTemperature(jsonObject.getJSONObject("main")) + " ℃";
 
         return new CityWithCurrentTemperatureItem(icon, cityNameFromJson, temperatureFromJson);
     }

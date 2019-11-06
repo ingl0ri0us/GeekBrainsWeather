@@ -13,4 +13,8 @@ public class CityWithCurrentTemperatureItem {
         this.cityName = cityName;
         this.currentTemperature = currentTemperature;
     }
+
+    public String getCityName() {
+        return cityName;
+    }
 }

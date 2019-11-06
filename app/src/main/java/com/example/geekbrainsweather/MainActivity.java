@@ -11,18 +11,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
 import com.example.geekbrainsweather.fragments.About;
 import com.example.geekbrainsweather.fragments.CitiesWithCurrentTemperatures;
-import com.example.geekbrainsweather.fragments.EnterCityName;
 import com.example.geekbrainsweather.fragments.SensorTemperature;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,10 +29,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     String newCity;
 
-    EnterCityName enterCityNameFragment;
     SensorTemperature sensorTemperatureFragment;
     CitiesWithCurrentTemperatures citiesWithCurrentTemperaturesFragment;
     About aboutFragment;
+
+    // TODO: 2019-11-04 add landscape layout with current weather information
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initFragments() {
-        enterCityNameFragment = new EnterCityName();
         sensorTemperatureFragment = new SensorTemperature();
         citiesWithCurrentTemperaturesFragment = new CitiesWithCurrentTemperatures();
         aboutFragment = new About();
@@ -59,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setDefaultFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragmentContainer, enterCityNameFragment)
+                .replace(R.id.fragmentContainer, citiesWithCurrentTemperaturesFragment)
                 .commit();
     }
 
@@ -73,32 +70,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, getString(R.string.created_by), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .show();
+                showInputDialog();
             }
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if(id == R.id.menu_add) {
-            showInputDialog();
-        }
-        return true;
-    }
-
     private void showInputDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Alert dialog");
+        builder.setTitle("Enter city name");
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -130,21 +109,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
-        if (id == R.id.three_hour_forecast) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer, enterCityNameFragment)
-                    .commit();
-        } else if (id == R.id.sensor_temperature) {
+        if (id == R.id.sensor_temperature) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer, sensorTemperatureFragment)
-                    .addToBackStack(null)
-                    .commit();
-        } else if (id == R.id.list_of_cities) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer, citiesWithCurrentTemperaturesFragment)
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.about) {
