@@ -2,32 +2,25 @@ package com.example.geekbrainsweather;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 
 import com.example.geekbrainsweather.fragments.About;
 import com.example.geekbrainsweather.fragments.CitiesWithCurrentTemperatures;
 import com.example.geekbrainsweather.fragments.SensorTemperature;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity
+        extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawer;
     Toolbar toolbar;
-    private FloatingActionButton floatingActionButton;
-
-    String newCity;
 
     SensorTemperature sensorTemperatureFragment;
     CitiesWithCurrentTemperatures citiesWithCurrentTemperaturesFragment;
@@ -44,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setDefaultFragment();
         initViews();
         initSideMenu();
-        setFloatingActionButtonBehaviour();
     }
 
     private void initFragments() {
@@ -61,38 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initViews() {
-        floatingActionButton = findViewById(R.id.floatingActionButton2);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-    }
-
-    private void setFloatingActionButtonBehaviour() {
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showInputDialog();
-            }
-        });
-    }
-
-    private void showInputDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter city name");
-
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(input);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                newCity = input.getText().toString();
-                Bundle bundle = new Bundle();
-                bundle.putString("newCity", newCity);
-                citiesWithCurrentTemperaturesFragment.setArguments(bundle);
-                citiesWithCurrentTemperaturesFragment.addNewCity();
-            }
-        });
-        builder.show();
     }
 
     private void initSideMenu() {

@@ -8,7 +8,7 @@ public class ThreeHoursForecastItem {
     String temperatureValue;
     String humidityValue, airPressureValue, windSpeedValue;
 
-    ThreeHoursForecastItem(Drawable weatherThumbnail, String weekDay, String temperatureValue, String humidityValue, String airPressureValue, String windSpeedValue) {
+    public ThreeHoursForecastItem(Drawable weatherThumbnail, String weekDay, String temperatureValue, String humidityValue, String airPressureValue, String windSpeedValue) {
         this.weatherThumbnail = weatherThumbnail;
         this.weekDay = weekDay;
         this.temperatureValue = temperatureValue;
