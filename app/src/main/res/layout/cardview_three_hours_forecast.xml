@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/TealAndOrangeTheme"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/CardViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="1dp"
+        app:cardMaxElevation="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/weatherThumbnail"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="260dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="76dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.699"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/humidityLabelOnCard"
+                style="@style/SecondaryFont"
+                android:layout_width="94dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+            <TextView
+                android:id="@+id/airPressureLabelOnCard"
+                style="@style/SecondaryFont"
+                android:layout_width="94dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="72dp"
+                android:text=""
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/humidityLabelOnCard" />
+
+            <TextView
+                android:id="@+id/windSpeedLabelOnCard"
+                style="@style/SecondaryFont"
+                android:layout_width="94dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="72dp"
+                android:text=""
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/airPressureLabelOnCard" />
+
+            <TextView
+                android:id="@+id/humidityValueOnCard"
+                style="@style/SecondaryFont"
+                android:layout_width="94dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="20dp"
+                android:text=""
+                app:layout_constraintStart_toEndOf="@+id/humidityLabelOnCard"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+            <TextView
+                android:id="@+id/airPressureValueOnCard"
+                style="@style/SecondaryFont"
+                android:layout_width="94dp"
+                android:layout_height="26dp"
+                android:text=""
+                app:layout_constraintStart_toEndOf="@+id/airPressureLabelOnCard"
+                app:layout_constraintTop_toBottomOf="@+id/humidityValueOnCard" />
+
+            <TextView
+                android:id="@+id/windSpeedValueOnCard"
+                style="@style/SecondaryFont"
+                android:layout_width="94dp"
+                android:layout_height="26dp"
+                android:text=""
+                app:layout_constraintStart_toEndOf="@+id/windSpeedLabelOnCard"
+                app:layout_constraintTop_toBottomOf="@+id/airPressureValueOnCard" />
+
+            <TextView
+                android:id="@+id/dayOfWeekOnCard"
+                style="@style/PrimaryFont"
+                android:layout_width="154dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="16dp"
+                android:text=""
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/temperatureValueOnCard"
+                style="@style/PrimaryFont"
+                android:layout_width="61dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:text=""
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/dayOfWeekOnCard"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>
