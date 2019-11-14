@@ -29,7 +29,6 @@ import com.example.geekbrainsweather.CityWithCurrentTemperatureParser;
 import com.example.geekbrainsweather.CityWithCurrentTemperatureRecyclerViewAdapter;
 import com.example.geekbrainsweather.R;
 import com.example.geekbrainsweather.SwipeToDeleteCallback;
-import com.example.geekbrainsweather.database.CityWithCurrentTempTable;
 import com.example.geekbrainsweather.database.DatabaseHelper;
 import com.example.geekbrainsweather.httpRequest.OpenWeatherRepo;
 import com.example.geekbrainsweather.httpRequest.currentWeatherEntities.WeatherCurrentRequest;
@@ -217,7 +216,6 @@ public class CitiesWithCurrentTemperatures
                             Context context = getContext();
                             CityWithCurrentTemperatureParser parser = new CityWithCurrentTemperatureParser(mainModel, context);
                             parser.saveItemToDataBase(database);
-                            //CityWithCurrentTempTable.deleteAll(database);
                             CityWithCurrentTemperatureItem item = parser.getItemParsedFromJson();
                             listOfCities.add(item);
                             adapter.notifyItemInserted(listOfCities.size());

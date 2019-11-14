@@ -19,7 +19,7 @@ public class CityWithCurrentTemperatureParser {
     private int temperatureValue;
     private String temperatureAsString;
     private Drawable weatherThumbnail;
-    private long timeUpdated;
+    // TODO: 2019-11-14 add load weather from database option
 
     public CityWithCurrentTemperatureParser(WeatherCurrentRequest mainModel, Context context) {
         this.mainModel = mainModel;
@@ -41,19 +41,6 @@ public class CityWithCurrentTemperatureParser {
 
     public CityWithCurrentTemperatureItem getItemParsedFromJson() {
         return new CityWithCurrentTemperatureItem(weatherThumbnail, cityName, temperatureAsString);
-    }
-
-    private void getVariablesFromDataBase(String cityName, SQLiteDatabase database) {
-        CityWithCurrentTemperatureItem itemToParse = CityWithCurrentTempTable.getItemFromDataBase(cityName, database);
-        this.cityName = cityName;
-        thumbnailId = itemToParse.getThumbnailId();
-        temperatureValue = itemToParse.getTemperatureValue();
-        timeUpdated = itemToParse.getTimeUpdated();
-    }
-
-    public CityWithCurrentTemperatureItem getItemParsedFromDataBase(String cityName, SQLiteDatabase database) {
-        getVariablesFromDataBase(cityName, database);
-        return new CityWithCurrentTemperatureItem(getWeatherIconWithDataBaseId(thumbnailId),cityName, temperatureValue + " ℃");
     }
 
     public void saveItemToDataBase(SQLiteDatabase database) {
@@ -89,33 +76,33 @@ public class CityWithCurrentTemperatureParser {
             if (currentTimeFromJson >= sunrise && currentTimeFromJson < sunset) {
                 iconId = 1;
             } else {
-                iconId = 2;
+                iconId = 4;
             }
         } else {
             switch (id) {
                 case 2: {
-                    iconId = 3;
+                    iconId = 2;
                     break;
                 }
                 case 3:
                 case 5: {
-                    iconId = 4;
-                    break;
-                }
-                case 6: {
                     iconId = 5;
                     break;
                 }
-                case 7: {
+                case 6: {
                     iconId = 6;
                     break;
                 }
-                case 8: {
+                case 7: {
                     iconId = 7;
                     break;
                 }
-                default: {
+                case 8: {
                     iconId = 8;
+                    break;
+                }
+                default: {
+                    iconId = 9;
                     break;
                 }
             }
@@ -163,47 +150,6 @@ public class CityWithCurrentTemperatureParser {
                     iconToReturn = ContextCompat.getDrawable(context, R.drawable.alert_circle_dark);
                     break;
                 }
-            }
-        }
-        return iconToReturn;
-    }
-
-    private Drawable getWeatherIconWithDataBaseId(int thumbnailId) {
-
-        Drawable iconToReturn;
-
-        switch (thumbnailId) {
-            case 1: {
-                iconToReturn = ContextCompat.getDrawable(context, R.drawable.weather_sunny_dark);
-                break;
-            }
-            case 2: {
-                iconToReturn = ContextCompat.getDrawable(context, R.drawable.weather_clear_night_dark);
-                break;
-            }
-            case 3: {
-                iconToReturn = ContextCompat.getDrawable(context, R.drawable.weather_lightning_dark);
-                break;
-            }
-            case 4: {
-                iconToReturn = ContextCompat.getDrawable(context, R.drawable.weather_pouring_dark);
-                break;
-            }
-            case 5: {
-                iconToReturn = ContextCompat.getDrawable(context, R.drawable.snowflake_dark);
-                break;
-            }
-            case 6: {
-                iconToReturn = ContextCompat.getDrawable(context, R.drawable.weather_fog_dark);
-                break;
-            }
-            case 7: {
-                iconToReturn = ContextCompat.getDrawable(context, R.drawable.weather_partly_cloudy_dark);
-                break;
-            }
-            default: {
-                iconToReturn = ContextCompat.getDrawable(context, R.drawable.alert_circle_dark);
-                break;
             }
         }
         return iconToReturn;
