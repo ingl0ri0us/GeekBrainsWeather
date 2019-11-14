@@ -7,9 +7,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.geekbrainsweather.database.DatabaseHelper;
 import com.example.geekbrainsweather.fragments.About;
 import com.example.geekbrainsweather.fragments.CitiesWithCurrentTemperatures;
 import com.example.geekbrainsweather.fragments.SensorTemperature;

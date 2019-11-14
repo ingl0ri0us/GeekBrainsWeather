@@ -3,6 +3,7 @@ package com.example.geekbrainsweather.fragments;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,8 @@ import com.example.geekbrainsweather.CityWithCurrentTemperatureParser;
 import com.example.geekbrainsweather.CityWithCurrentTemperatureRecyclerViewAdapter;
 import com.example.geekbrainsweather.R;
 import com.example.geekbrainsweather.SwipeToDeleteCallback;
+import com.example.geekbrainsweather.database.CityWithCurrentTempTable;
+import com.example.geekbrainsweather.database.DatabaseHelper;
 import com.example.geekbrainsweather.httpRequest.OpenWeatherRepo;
 import com.example.geekbrainsweather.httpRequest.currentWeatherEntities.WeatherCurrentRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -48,6 +51,7 @@ public class CitiesWithCurrentTemperatures
     private ArrayList<CityWithCurrentTemperatureItem> listOfCities = new ArrayList<>();
     private CityWithCurrentTemperatureRecyclerViewAdapter adapter;
     private final String preferenceKey = "listOfSavedCities";
+    private SQLiteDatabase database;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +65,7 @@ public class CitiesWithCurrentTemperatures
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
+        initDB();
         setFloatingActionButtonBehaviour();
         initRecyclerView(listOfCities);
 
@@ -88,6 +93,10 @@ public class CitiesWithCurrentTemperatures
             saveCurrentListToFile(savedCitiesList);
         }
         return true;
+    }
+
+    private void initDB() {
+        database = new DatabaseHelper(getContext()).getWritableDatabase();
     }
 
     private void initViews(View view) {
@@ -207,7 +216,9 @@ public class CitiesWithCurrentTemperatures
                             WeatherCurrentRequest mainModel = response.body();
                             Context context = getContext();
                             CityWithCurrentTemperatureParser parser = new CityWithCurrentTemperatureParser(mainModel, context);
-                            CityWithCurrentTemperatureItem item = parser.getItem();
+                            parser.saveItemToDataBase(database);
+                            //CityWithCurrentTempTable.deleteAll(database);
+                            CityWithCurrentTemperatureItem item = parser.getItemParsedFromJson();
                             listOfCities.add(item);
                             adapter.notifyItemInserted(listOfCities.size());
                         }
