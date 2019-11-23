@@ -19,7 +19,6 @@ public class CityWithCurrentTemperatureParser {
     private int temperatureValue;
     private String temperatureAsString;
     private Drawable weatherThumbnail;
-    // TODO: 2019-11-14 add load weather from database option
 
     public CityWithCurrentTemperatureParser(WeatherCurrentRequest mainModel, Context context) {
         this.mainModel = mainModel;

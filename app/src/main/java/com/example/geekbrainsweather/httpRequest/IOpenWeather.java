@@ -16,5 +16,9 @@ public interface IOpenWeather {
     Call<ThreeHoursForecastRequest> loadForecastWeather(@Query("q") String city,
                                                         @Query("appid") String keyApi,
                                                         @Query("units") String units);
-
+    @GET("data/2.5/weather")
+    Call<WeatherCurrentRequest> loadCurrentWeatherByLocation(@Query("lat") String lat,
+                                                             @Query("lon") String lon,
+                                                             @Query("appid") String keyApi,
+                                                             @Query("units") String units);
 }

@@ -7,11 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.geekbrainsweather.database.DatabaseHelper;
 import com.example.geekbrainsweather.fragments.About;
 import com.example.geekbrainsweather.fragments.CitiesWithCurrentTemperatures;
 import com.example.geekbrainsweather.fragments.SensorTemperature;
@@ -20,15 +18,12 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity
         extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
     DrawerLayout drawer;
     Toolbar toolbar;
 
     SensorTemperature sensorTemperatureFragment;
     CitiesWithCurrentTemperatures citiesWithCurrentTemperaturesFragment;
     About aboutFragment;
-
-    // TODO: 2019-11-04 add landscape layout with current weather information
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

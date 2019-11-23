@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
-    // TODO: 2019-11-04 add animation to swipe
     private CityWithCurrentTemperatureRecyclerViewAdapter adapter;
 
     public SwipeToDeleteCallback(CityWithCurrentTemperatureRecyclerViewAdapter adapter) {
