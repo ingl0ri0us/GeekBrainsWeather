@@ -1,3 +1,26 @@
 <resources>
-    <string name="app_name">GeekBrainsWeather</string>
+    <string name="app_name" translatable="false">GeekBrainsWeather</string>
+    <string name="temperature">Temperature</string>
+    <string name="humidity">Humidity</string>
+    <string name="air_pressure">Air Pressure</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="created_by">This app was created by GeekBrains student</string>
+
+    <string name="sensor_temperature">Sensor Temperature</string>
+    <string name="no_sensor">Sensor is not available</string>
+
+    <string name="save">Save list of cities</string>
+    <string name="load_list_of_cities">Load list of cities</string>
+    <string name="location">Add city by location</string>
+
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="navigation_header" translatable="false">Navigation header</string>
+
+    <string name="communicate">Communicate</string>
+    <string name="about">About</string>
+
+    <string name="permission_warning">Press OK to proceed and load default city(Moscow) or AGAIN to ask for permission</string>
+    <string name="ok">OK</string>
+    <string name="again">AGAIN</string>
 </resources>

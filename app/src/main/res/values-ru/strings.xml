@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="temperature">Температура</string>
+    <string name="humidity">Влажность</string>
+    <string name="air_pressure">Давление</string>
+    <string name="wind_speed">Ветер</string>
+
+    <string name="created_by">Приложение было создано студентом GeekBrains</string>
+
+    <string name="sensor_temperature">Температура устройства</string>
+    <string name="no_sensor">Сенсор не доступен</string>
+
+    <string name="save">Сохранить список городов</string>
+    <string name="load_list_of_cities">Загрузить список городов</string>
+    <string name="location">Добавить город по местоположению</string>
+
+    <string name="communicate">Обратная связь</string>
+    <string name="about">О программе</string>
+    <string name="permission_warning">Нажмите ОК для продолжения и загрузки города по умолчанию(Москва) или СНОВА для запроса разрешения</string>
+    <string name="ok">ОК</string>
+    <string name="again">СНОВА</string>
+</resources>
